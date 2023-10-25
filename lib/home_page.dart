@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:listkuliner/styles.dart';
+import 'package:listkuliner/makanan.dart';
 import 'package:listkuliner/list_item.dart';
 
 class HomePage extends StatelessWidget {
@@ -7,15 +7,16 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(padding: EdgeInsets.all(10), children: [
-      const SizedBox(height: 20),
-      const Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Icon(Icons.list_alt_sharp, size: 30),
-        SizedBox(width: 10),
-        Text('List Kuliner', style: textHeader1),
-      ]),
-      Padding(padding: EdgeInsets.only(bottom: 20)),
-      ListItem(),
-    ]);
+    return ListView.builder(
+      itemCount: listMakanan.length,
+      padding: EdgeInsets.all(10),
+      itemBuilder: (context, index) {
+        return ListItem(
+          nama: listMakanan[index].nama,
+          deskripsi: listMakanan[index].deskripsi,
+          gambar: listMakanan[index].gambar,
+        );
+      },
+    );
   }
 }

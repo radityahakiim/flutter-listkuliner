@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
 class ListItem extends StatelessWidget {
-  const ListItem({super.key});
+  final String nama;
+  final String deskripsi;
+  final String gambar;
+
+  const ListItem(
+      {super.key,
+      required this.nama,
+      required this.deskripsi,
+      required this.gambar});
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +33,11 @@ class ListItem extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Container(
-            width: 85,
+          // widget untuk menampilkan gambar lokal
+          Image.asset(
+            gambar,
+            width: 75,
             height: 75,
-            color: Colors.grey,
           ),
           SizedBox(
             width: 10,
@@ -37,14 +46,14 @@ class ListItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Title",
+                nama,
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                "Sub title",
+                deskripsi,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                 ),
