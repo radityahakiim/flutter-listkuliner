@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:listkuliner/detail_page.dart';
 
 class ListItem extends StatelessWidget {
   final String nama;
+  final String detail;
   final String deskripsi;
   final String gambar;
+  final String waktubuka;
+  final String harga;
+  final String kalori;
+  final List<String> gambarlain;
+  final List<Map<String, String>> bahan;
 
   const ListItem(
       {super.key,
       required this.nama,
+      required this.harga,
+      required this.gambarlain,
+      required this.detail,
+      required this.kalori,
+      required this.bahan,
+      required this.waktubuka,
       required this.deskripsi,
       required this.gambar});
 
@@ -59,6 +72,24 @@ class ListItem extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DetailPage(
+                            nama: nama,
+                            gambar: gambar,
+                            kalori: kalori,
+                            deskripsi: deskripsi,
+                            waktubuka: waktubuka,
+                            detail: detail,
+                            harga: harga,
+                            gambarlain: gambarlain,
+                            bahan: bahan,
+                          )));
+            },
           ),
         ],
       ),

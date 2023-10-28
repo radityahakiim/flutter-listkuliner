@@ -9,12 +9,18 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: listMakanan.length,
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       itemBuilder: (context, index) {
         return ListItem(
           nama: listMakanan[index].nama,
           deskripsi: listMakanan[index].deskripsi,
           gambar: listMakanan[index].gambar,
+          detail: listMakanan[index].detail,
+          waktubuka: listMakanan[index].waktubuka,
+          harga: listMakanan[index].harga,
+          gambarlain: listMakanan[index].gambarlain,
+          bahan: listMakanan[index].bahan,
+          kalori: listMakanan[index].kalori,
         );
       },
     );
