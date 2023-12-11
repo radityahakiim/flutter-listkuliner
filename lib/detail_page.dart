@@ -1,27 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:listkuliner/http_helper.dart';
+import 'package:listkuliner/makanan.dart';
 
 class DetailPage extends StatelessWidget {
-  final String nama;
-  final String gambar;
-  final String waktubuka;
-  final String harga;
-  final String kalori;
-  final String detail;
-  final String deskripsi;
-  final List<String> gambarlain;
-  final List<Map<String, String>> bahan;
+  final Makanan makanan;
+  HttpHelper api = HttpHelper();
 
-  const DetailPage(
-      {super.key,
-      required this.nama,
-      required this.gambar,
-      required this.waktubuka,
-      required this.harga,
-      required this.kalori,
-      required this.detail,
-      required this.gambarlain,
-      required this.bahan,
-      required this.deskripsi});
+  DetailPage({super.key, required this.makanan, required this.api});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +17,7 @@ class DetailPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Image.asset(
-              gambar,
+              api.url + makanan.gambar,
               scale: 0.5,
             ),
             SafeArea(
@@ -71,7 +56,7 @@ class DetailPage extends StatelessWidget {
                         height: 8,
                       ),
                       Text(
-                        waktubuka,
+                        makanan.waktubuka,
                       ),
                     ],
                   ),
@@ -85,7 +70,7 @@ class DetailPage extends StatelessWidget {
                         height: 8,
                       ),
                       Text(
-                        kalori,
+                        makanan.kalori,
                       ),
                     ],
                   ),
@@ -96,7 +81,7 @@ class DetailPage extends StatelessWidget {
                         height: 8,
                       ),
                       Text(
-                        harga,
+                        makanan.harga,
                       ),
                     ],
                   ),
@@ -106,7 +91,7 @@ class DetailPage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               child: Text(
-                detail,
+                makanan.detail,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16,
@@ -117,7 +102,7 @@ class DetailPage extends StatelessWidget {
               height: 150,
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                children: gambarlain.map((url) {
+                children: makanan.gambarlain.map((url) {
                   return Padding(
                     padding: const EdgeInsets.all(4),
                     child: ClipRRect(
@@ -153,15 +138,16 @@ class DetailPage extends StatelessWidget {
                         ),
                         child: Column(
                           children: [
-                            Image.asset(bahan[index].values.first, width: 52),
-                            Text(bahan[index].keys.first),
+                            Image.asset(makanan.bahan[index].values.first,
+                                width: 52),
+                            Text(makanan.bahan[index].keys.first),
                           ],
                         ),
                       ),
                   separatorBuilder: (_, index) => SizedBox(
                         width: 15,
                       ),
-                  itemCount: bahan.length),
+                  itemCount: makanan.bahan.length),
             ),
             SizedBox(
               height: 50,
@@ -178,15 +164,16 @@ class DetailPage extends StatelessWidget {
                         ),
                         child: Column(
                           children: [
-                            Image.asset(bahan[index].values.first, width: 52),
-                            Text(bahan[index].keys.first),
+                            Image.asset(makanan.bahan[index].values.first,
+                                width: 52),
+                            Text(makanan.bahan[index].keys.first),
                           ],
                         ),
                       ),
                   separatorBuilder: (_, index) => SizedBox(
                         width: 15,
                       ),
-                  itemCount: bahan.length),
+                  itemCount: makanan.bahan.length),
             ),
             SizedBox(
               height: 50,

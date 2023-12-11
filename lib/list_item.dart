@@ -1,96 +1,87 @@
 import 'package:flutter/material.dart';
 import 'package:listkuliner/detail_page.dart';
+import 'package:listkuliner/http_helper.dart';
+import 'package:listkuliner/makanan.dart';
+import 'package:listkuliner/styles.dart';
 
 class ListItem extends StatelessWidget {
-  final String nama;
-  final String detail;
-  final String deskripsi;
-  final String gambar;
-  final String waktubuka;
-  final String harga;
-  final String kalori;
-  final List<String> gambarlain;
-  final List<Map<String, String>> bahan;
+  HttpHelper api = HttpHelper();
+  final Makanan makanan;
 
-  const ListItem(
-      {super.key,
-      required this.nama,
-      required this.harga,
-      required this.gambarlain,
-      required this.detail,
-      required this.kalori,
-      required this.bahan,
-      required this.waktubuka,
-      required this.deskripsi,
-      required this.gambar});
+  ListItem({super.key, required this.makanan, required this.api});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        boxShadow: [
-          BoxShadow(
-            color: Color.fromARGB(255, 178, 178, 178),
-            offset: Offset(1.0, 2.0),
-            blurRadius: 6.0,
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailPage(
+              makanan: makanan,
+              api: api,
+            ),
           ),
-        ],
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 8),
+        decoration: decorBoxContainer(),
+        height: 100,
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: Image.network(
+                  api.url + makanan.gambar,
+                  height: 75,
+                  width: 85,
+                  fit: BoxFit.cover,
+                )),
+            const SizedBox(width: 10),
+            itemText(),
+            Icon(Icons.food_bank_rounded, color: iconColor, size: 30)
+          ],
+        ),
       ),
-      height: 100,
-      padding: EdgeInsets.symmetric(
-        horizontal: 15,
-        vertical: 10,
-      ),
-      child: Row(
+    );
+  }
+
+  BoxDecoration decorBoxContainer() {
+    return const BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+      boxShadow: [
+        BoxShadow(
+          color: Color.fromARGB(255, 178, 178, 178),
+          offset: Offset(1.0, 2.0),
+          blurRadius: 6.0,
+        ),
+      ],
+    );
+  }
+
+  Expanded itemText() {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // widget untuk menampilkan gambar lokal
-          Image.asset(
-            gambar,
-            width: 75,
-            height: 75,
+          Text(makanan.nama, style: textHeader2),
+          Text(
+            makanan.deskripsi,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(color: Colors.black38),
           ),
-          SizedBox(
-            width: 10,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                nama,
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                deskripsi,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => DetailPage(
-                            nama: nama,
-                            gambar: gambar,
-                            kalori: kalori,
-                            deskripsi: deskripsi,
-                            waktubuka: waktubuka,
-                            detail: detail,
-                            harga: harga,
-                            gambarlain: gambarlain,
-                            bahan: bahan,
-                          )));
-            },
-          ),
+          Text(
+            makanan.harga,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black45,
+            ),
+          )
         ],
       ),
     );
